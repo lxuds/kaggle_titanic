@@ -4,6 +4,7 @@ In this competition, we were asked to predict what sorts of people would survive
 
 Data: 1502 out of 2224 passengers and crew were killed after the Titanic sank. The training sets are labeled, and include the information of 891 passengers, such as Sex, Age, Fare, Ticket class, Number of siblings/spouses aboard the Titanic, etc. The testing sets contain the same information of 418 passengers. You may find the data and more description at https://www.kaggle.com/c/titanic
 
+The model objective is to maximise accuracy--the percentage of passengers correctly predicted.
 
 First step: Data visualization and feature engineering. We used iPython notebook to perform data visualization.
 
