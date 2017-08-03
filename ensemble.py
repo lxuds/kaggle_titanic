@@ -4,7 +4,6 @@ import pandas as pd
 from sklearn.cross_validation import KFold
 from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier, GradientBoostingClassifier
 from sklearn import grid_search
-from sklearn.metrics import mean_squared_error, make_scorer
 from xgboost import XGBClassifier
 
 
@@ -92,7 +91,7 @@ class Ensemble(object):
             'learning_rate': [0.05],
             'subsample': [0.75]
         }
-        grid = grid_search.GridSearchCV(estimator=self.stacker, param_grid=param_grid, n_jobs=1, cv=5, verbose=20, scoring='roc_auc')
+        grid = grid_search.GridSearchCV(estimator=self.stacker, param_grid=param_grid, n_jobs=1, cv=5, verbose=20, scoring='accuracy')
         grid.fit(S_train, y)
 
         # memo
