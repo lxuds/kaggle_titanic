@@ -28,7 +28,6 @@ class Ensemble(object):
                 X_train = X[train_idx]
                 y_train = y[train_idx]
                 X_holdout = X[test_idx]
-                # y_holdout = y[test_idx]
                 clf.fit(X_train, y_train)
                 y_pred = clf.predict(X_holdout)[:]
                 S_train[test_idx, i] = y_pred
@@ -70,7 +69,6 @@ class Ensemble(object):
                 X_train = X[train_idx]
                 y_train = y[train_idx]
                 X_holdout = X[test_idx]
-                # y_holdout = y[test_idx]
                 clf.fit(X_train, y_train)
                 y_pred = clf.predict(X_holdout)[:]
                 S_train[test_idx, i] = y_pred
@@ -81,16 +79,13 @@ class Ensemble(object):
             print('Elapsed: %s minutes ---' % round(((time.time() - start_time) / 60), 2))
         print('--- Base Models Trained: %s minutes ---' % round(((time.time() - start_time) / 60), 2))
 
-        # param_grid = {
-        #     'n_estimators': [100],
-        #     'learning_rate': [0.45, 0.05, 0.055],
-        #     'subsample': [0.72, 0.75, 0.78]
-        # }
+        # grid search for the best parameter sets of the stacker classifier
         param_grid = {
-            'n_estimators': [100],
-            'learning_rate': [0.05],
-            'subsample': [0.75]
+             'n_estimators': [100],
+             'learning_rate': [0.45, 0.05, 0.055],
+             'subsample': [0.72, 0.75, 0.78]
         }
+
         grid = grid_search.GridSearchCV(estimator=self.stacker, param_grid=param_grid, n_jobs=1, cv=5, verbose=20, scoring='accuracy')
         grid.fit(S_train, y)
 
@@ -103,7 +98,7 @@ class Ensemble(object):
             print('Best Params:')
             print(grid.best_params_)
             print('Best CV Score:')
-            print(-grid.best_score_)
+            print(grid.best_score_)
             print('Best estimator:')
             print(grid.best_estimator_)
             print(message)
